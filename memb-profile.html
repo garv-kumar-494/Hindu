@@ -304,7 +304,7 @@
 
     // 🔹 Fetch temples
     async function fetchTemples() {
-        const res = await fetch("/api/temples");
+        const res = await fetch("https://hindu-cc0q.onrender.com/api/temples");
         const data = await res.json();
         temples = data.data || [];
     }
@@ -408,7 +408,7 @@
 
 
 
-        const res = await fetch("/save", {
+        const res = await fetch("https://hindu-cc0q.onrender.com/member/save", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, phone, email, password, temple }),
