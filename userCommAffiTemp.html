@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Temple App</title>
+
+<style>
+:root {
+  --orange-main: #f97316;
+  --orange-soft: #fff7ed;
+  --orange-card: #fffaf3;
+  --orange-text: #7c2d12;
+  --orange-muted: #9a3412;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--orange-soft);
+  color: var(--orange-text);
+}
+
+/* HEADER */
+header {
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* GITA CARD */
+.gita-card {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+  margin: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(249,115,22,0.2);
+}
+
+.gita-card span {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--orange-main);
+}
+
+.gita-card p {
+  margin: 10px 0;
+  font-style: italic;
+}
+
+.gita-card small {
+  font-weight: 600;
+}
+
+/* CONTAINER */
+.container {
+  padding: 16px;
+  padding-bottom: 90px;
+}
+
+h2 {
+  margin: 10px 0 16px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* CARD */
+.card {
+  background: var(--orange-card);
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid #fed7aa;
+  box-shadow: 0 6px 18px rgba(249,115,22,0.15);
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  color: var(--orange-main);
+}
+
+.card p {
+  margin: 4px 0;
+  color: var(--orange-muted);
+  font-size: 14px;
+}
+
+/* LOADING */
+.loading {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  border-top: 1px solid #fed7aa;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.bottom-nav div {
+  text-align: center;
+  font-size: 12px;
+  color: #9a3412;
+}
+
+.bottom-nav .active {
+  color: var(--orange-main);
+  font-weight: bold;
+}
+
+/* MOBILE */
+@media(max-width:600px) {
+  header {
+    font-size: 18px;
+  }
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #9a3412;
+  cursor: pointer;
+}
+
+.nav-item span {
+  margin-top: 4px;
+}
+
+.nav-item.active {
+  color: #f97316;
+  font-weight: 600;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header>Namaste 🙏</header>
+
+
+
+<!-- CONTENT -->
+<div class="container">
+  <h2>🛕 Temples</h2>
+
+  <div id="loading" class="loading">Loading temples...</div>
+  <div id="templeList" class="grid"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+    
+<div onclick="showHome()" class="nav-item active">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="#f97316"
+       xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/>
+  </svg>
+  <span>Home</span>
+</div>
+
+
+
+
+  <div onclick="showProfile()">👤<br>Profile</div>
+</div>
+
+<script>
+const API_URL = "https://hindu-cc0q.onrender.com/dashboard-temple/api/temples";
+
+async function fetchTemples() {
+  try {
+    const res = await fetch(API_URL);
+    const result = await res.json();
+
+    document.getElementById("loading").style.display = "none";
+
+    if (!result.success) return;
+
+    const list = document.getElementById("templeList");
+
+    result.data.forEach(t => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <h3>🛕 ${t.templeName}</h3>
+        <p><strong>Location:</strong> ${t.templeLocation}</p>
+        <p><strong>State:</strong> ${t.templeState}</p>
+      `;
+      list.appendChild(div);
+    });
+
+  } catch {
+    document.getElementById("loading").innerText = "Error loading temples";
+  }
+}
+
+fetchTemples();
+function showHome() {
+    window.location.href = "dashboard.html";
+}   
+function showProfile() {
+    window.location.href = "userProfile.html";
+}
+</script>
+
+</body>
+</html>

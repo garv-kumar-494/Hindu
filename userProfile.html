@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile</title>
+
+<style>
+:root {
+  --orange: #f97316;
+  --bg: #fff7ed;
+  --card: #fffaf3;
+  --text: #7c2d12;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* HEADER */
+header {
+  padding: 18px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* CARD */
+.profile-card {
+  margin: 20px;
+  background: var(--card);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 25px rgba(249,115,22,0.2);
+}
+
+/* ROW */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 14px 0;
+  font-size: 15px;
+}
+
+.row span {
+  font-weight: 600;
+}
+
+/* PASSWORD */
+.password-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.password-box button {
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* LOGOUT */
+.logout {
+  margin-top: 25px;
+  width: 100%;
+  padding: 14px;
+  background: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  header { font-size:18px }
+}
+</style>
+</head>
+
+<body>
+
+<header>👤 My Profile</header>
+
+<div class="profile-card">
+
+  <div class="row">🙏 <span>Name</span> <div id="name"></div></div>
+  <div class="row">📧 <span>Email</span> <div id="email"></div></div>
+  <div class="row">📱 <span>Phone</span> <div id="phone"></div></div>
+
+  <div class="row">
+    🔒 <span>Password</span>
+    <div class="password-box">
+      <span id="password">••••••</span>
+      <button onclick="togglePass()">👁️</button>
+    </div>
+  </div>
+
+  <div class="row">🛕 <span>Temple</span> <div id="temple"></div></div>
+
+  <button class="logout" onclick="logout()">🚪 Logout</button>
+
+</div>
+
+<script>
+let realPass = "";
+
+// Load data from localStorage
+function loadProfile() {
+  const name = localStorage.getItem("userName");
+  const email = localStorage.getItem("userEmail");
+  const phone = localStorage.getItem("userPhone");
+  const temple = localStorage.getItem("userTemple");
+  const password = localStorage.getItem("userPassword");
+
+  // Agar login data hi nahi mila
+  if (!email) {
+    window.location.href = "welcomepage.html";
+    return;
+  }
+
+  document.getElementById("name").innerText = name || "-";
+  document.getElementById("email").innerText = email || "-";
+  document.getElementById("phone").innerText = phone || "-";
+  document.getElementById("temple").innerText = temple || "-";
+
+  realPass = password || "";
+}
+
+// Show / hide password
+function togglePass() {
+  const p = document.getElementById("password");
+  if (p.innerText === "••••••") {
+    p.innerText = realPass || "N/A";
+  } else {
+    p.innerText = "••••••";
+  }
+}
+
+// Logout
+function logout() {
+  localStorage.clear(); // optional but recommended
+  window.location.href = "index.html";
+}
+
+loadProfile();
+</script>
+
+
+</body>
+</html>
