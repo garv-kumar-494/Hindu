@@ -14,7 +14,7 @@ const eventSchema = new mongoose.Schema({
 const EventAdmin = mongoose.model("EventAdmin", eventSchema);
 
 // API → Get all events
-router.get("/admin/events", async (req, res) => {
+router.get("/admin", async (req, res) => {
   try {
     const events = await EventAdmin.find().sort({ eventDate: 1 });
     res.json(events);
