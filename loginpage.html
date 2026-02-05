@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Member Login</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#D97706",
+                        "primary-dark": "#B45309",
+                        "background-light": "#FFFCF5",
+                        "background-dark": "#1C1917",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#292524",
+                        "border-light": "#FED7AA",
+                        "border-dark": "#78350F",
+                        "text-main": "#431407",
+                        "text-light": "#FFFBEB",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        .theme-pattern {
+            background-color: transparent;
+            background-image: radial-gradient(#F59E0B 0.5px, transparent 0.5px), radial-gradient(#F59E0B 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+            opacity: 0.15;
+        }
+
+        .dark .theme-pattern {
+            background-image: radial-gradient(#92400E 0.5px, transparent 0.5px), radial-gradient(#92400E 0.5px, transparent 0.5px);
+            opacity: 0.25;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark antialiased font-display min-h-screen flex flex-col selection:bg-primary/30">
+    <div class="fixed inset-0 theme-pattern pointer-events-none z-0"></div>
+    
+    <header
+        class="flex items-center justify-between p-4 pb-2 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm z-10 transition-colors">
+        <div class="size-10"></div>
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary dark:text-[#f59e0b] text-3xl float-animation">local_florist</span>
+            <span class="text-primary-dark dark:text-[#fde68a] text-lg font-bold tracking-wide">Temple Member</span>
+        </div>
+        <button id="themeToggle"
+            class="flex size-10 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+            <span class="material-symbols-outlined text-text-main dark:text-text-light" id="themeIcon">dark_mode</span>
+        </button>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center justify-center px-6 py-8 z-10 relative">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary-dark/20 mb-4 float-animation">
+                    <span class="material-symbols-outlined text-primary dark:text-[#f59e0b] text-5xl">temple_hindu</span>
+                </div>
+                <h1
+                    class="text-text-main dark:text-text-light text-4xl font-serif font-bold leading-tight tracking-tight mb-3">
+                    Hari Om! <br /> Welcome Back
+                </h1>
+                <p class="text-[#78350f] dark:text-[#fde68a]/80 text-base font-body font-normal leading-relaxed">
+                    Sign in to access your temple community
+                </p>
+            </div>
+
+            <div class="space-y-5">
+                <div class="flex flex-col gap-2 group">
+                    <label class="text-text-main dark:text-[#fde68a] text-sm font-bold uppercase tracking-wide ml-1"
+                        for="email">
+                        Email
+                    </label>
+                    <div class="relative">
+                        <input
+                            class="form-input flex w-full rounded-2xl border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark h-14 pl-12 pr-4 text-lg text-text-main dark:text-text-light placeholder-[#9a3412]/40 dark:placeholder-[#fde68a]/30 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm group-hover:shadow-md"
+                            id="email" placeholder="yourname@gmail.com" type="text" />
+                        <span
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary dark:text-[#d97706] pointer-events-none">person</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2 group">
+                    <div class="flex justify-between items-baseline">
+                        <label class="text-text-main dark:text-[#fde68a] text-sm font-bold uppercase tracking-wide ml-1"
+                            for="password">
+                            Password
+                        </label>
+                    </div>
+                    <div class="relative">
+                        <input
+                            class="form-input flex w-full rounded-2xl border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark h-14 pl-12 pr-14 text-lg text-text-main dark:text-text-light placeholder-[#9a3412]/40 dark:placeholder-[#fde68a]/30 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm group-hover:shadow-md"
+                            id="password" placeholder="Enter your password" type="password" />
+                        <span
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary dark:text-[#d97706] pointer-events-none">lock</span>
+                        <button type="button" id="togglePassword"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9a3412]/60 dark:text-[#fde68a]/60 hover:text-primary dark:hover:text-[#f59e0b] transition-colors">
+                            <span class="material-symbols-outlined" id="eyeIcon">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 pl-1">
+                    <input type="checkbox" id="remember"
+                        class="w-5 h-5 rounded border-border-light dark:border-border-dark text-primary focus:ring-primary focus:ring-offset-0 cursor-pointer" />
+                    <label for="remember" class="text-[#78350f] dark:text-[#fde68a]/80 text-sm font-medium cursor-pointer">
+                        Remember Password
+                    </label>
+                </div>
+
+                <button
+                    id="loginBtn"
+                    class="w-full h-14 bg-gradient-to-r from-[#ea580c] to-[#d97706] hover:from-[#c2410c] hover:to-[#b45309] active:scale-[0.98] transition-all rounded-full text-white text-lg font-bold font-display shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 mt-6">
+                    Sign In
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-border-light dark:border-border-dark"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-[#78350f] dark:text-[#fde68a]/80 text-sm font-medium">
+                    Don't have an account? 
+                    <a href="memb-profile.html" class="text-primary dark:text-[#f59e0b] font-bold hover:underline">Sign Up</a>
+                </p>
+            </div>
+
+            <p class="text-center mt-6 text-xs text-[#9a3412]/60 dark:text-[#fcd34d]/50 font-medium">
+                By continuing, you agree to our <a class="underline hover:text-primary" href="#">Terms</a> and <a
+                    class="underline hover:text-primary" href="#">Privacy Policy</a>.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.textContent = 'dark_mode';
+            } else {
+                html.classList.add('dark');
+                themeIcon.textContent = 'light_mode';
+            }
+        });
+
+        // Password toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            eyeIcon.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+        });
+
+        // Login functionality
+        document.getElementById("loginBtn").addEventListener("click", async () => {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (!email || !password) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            const res = await fetch("https://hindu-cc0q.onrender.com/login/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                // Store user session data
+                const userData = { email, loggedIn: true };
+                alert("Login successful! Welcome back.");
+                // Redirect to dashboard or home page
+                window.location.href = "dashboard.html";
+            } else {
+                alert(data.message || "Invalid credentials");
+            }
+        });
+    </script>
+</body>
+
+</html>
