@@ -11,12 +11,12 @@ const eventSchema = new mongoose.Schema({
   description: String
 });
 
-const Event = mongoose.model("Event", eventSchema);
+const EventAdmin = mongoose.model("EventAdmin", eventSchema);
 
 // API → Get all events
 router.get("/admin/events", async (req, res) => {
   try {
-    const events = await Event.find().sort({ eventDate: 1 });
+    const events = await EventAdmin.find().sort({ eventDate: 1 });
     res.json(events);
   } catch (err) {
     res.status(500).json({ error: "Server Error" });
