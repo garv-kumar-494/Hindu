@@ -304,7 +304,7 @@
 
     // 🔹 Fetch temples
     async function fetchTemples() {
-        const res = await fetch("https://hindu-cc0q.onrender.com/api/temples");
+        const res = await fetch("https://hindu-cc0q.onrender.com/frontui-temple/api/temples");
         const data = await res.json();
         temples = data.data || [];
     }
