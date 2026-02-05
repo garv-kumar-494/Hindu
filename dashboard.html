@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Community Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#E67E22", // Saffron Orange
+                        "secondary": "#D35400", // Darker Orange
+                        "accent": "#F1C40F", // Gold
+                        "background-light": "#FFFAF0", // Floral White/Cream
+                        "background-dark": "#2C2016", // Dark brown/wood
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .material-symbols-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-[#181411] dark:text-white font-display min-h-screen flex flex-col">
+    <div
+        class="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md flex items-center justify-between p-4 pb-2 border-b border-orange-100 dark:border-orange-900/30">
+        <div class="flex items-center gap-3">
+            <div class="relative">
+                <div class="bg-center bg-no-repeat bg-cover rounded-full size-11 ring-2 ring-primary"
+                    data-alt="User profile avatar of a smiling man"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAUqXwr4rJONbM7S4Uc-WP9jjwuGRclG21BD46d3xg9vvPFbkXi6qRA3X-81Oci2fLu8hK4Hi6NIPHsyAsVUhp4lQhBwdxODJ3I244GMtFzg3cqX9tdnBZjdID9UP6yNW_peTZ4cJkCe-x5Vyn22P9xm65J2xAzsVRimVFoUGmj01qsPoAY8gDjD_8FGj-kUI0G9LsKIs0ECDUKockp46isW5QUDcX7To9CJmIOAOZCyhuv39zlK8kmrc4rGtld9XIw6p0K9AX-8_E6");'>
+                </div>
+                <div class="absolute -bottom-1 -right-1 bg-white dark:bg-background-dark rounded-full p-0.5">
+                    <span
+                        class="material-symbols-outlined text-green-600 text-[16px] material-symbols-filled">verified</span>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-xs font-semibold text-primary uppercase tracking-wide">Hari Om</span>
+                <span id="dashboard-user-name"
+                    class="text-lg font-bold text-[#181411] dark:text-white leading-none font-serif">
+                    User
+                </span>
+
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            
+        </div>
+    </div>
+    <div class="flex-1 overflow-y-auto overflow-x-hidden pb-24">
+        <div class="px-4 pt-6 pb-4">
+            <h2 id="dashboard-greeting"
+                class="text-[#181411] dark:text-white tracking-tight text-2xl font-bold leading-tight mb-4">
+                Namaste 🙏
+            </h2>
+
+
+
+            <div
+                class="relative overflow-hidden bg-gradient-to-br from-[#FFF5E6] to-[#FFE0B2] dark:from-[#3D2C1E] dark:to-[#2C2016] rounded-2xl p-5 border border-orange-200 dark:border-orange-900/50 shadow-sm">
+                <div class="absolute right-0 top-0 opacity-10 dark:opacity-5 pointer-events-none">
+                    <span class="material-symbols-outlined text-[140px] -mr-8 -mt-8 text-primary">local_florist</span>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span
+                            class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-primary/20">Daily
+                            Wisdom</span>
+                    </div>
+                    <p class="font-serif italic text-lg text-gray-800 dark:text-gray-100 leading-relaxed mb-3">
+                        "Whatever action a great man performs, common men follow. And whatever standards he sets by
+                        exemplary acts, all the world pursues."
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="text-xs font-semibold text-primary dark:text-primary-400 uppercase tracking-widest">—
+                            Bhagavad Gita 3.21</span>
+                        <button
+                            class="size-8 rounded-full bg-white/60 dark:bg-black/20 hover:bg-white dark:hover:bg-black/40 flex items-center justify-center transition-colors text-primary">
+                            <span class="material-symbols-outlined text-[18px]">share</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-4 gap-3 px-4 mb-6">
+            <button class="flex flex-col items-center gap-2 group">
+                <div
+                    class="size-16 rounded-2xl bg-white dark:bg-white/5 border border-orange-100 dark:border-white/10 shadow-sm flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-[30px] material-symbols-filled">badge</span>
+                </div>
+                <span class="text-xs font-semibold text-center text-gray-700 dark:text-gray-300">Member Card</span>
+            </button>
+
+
+           <button onclick="handleCommunityClick()" class="flex flex-col items-center gap-2 group">
+    <div
+        class="size-16 rounded-2xl bg-white dark:bg-white/5 border border-orange-100 dark:border-white/10 shadow-sm flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+        <span class="material-symbols-outlined text-[30px]">forum</span>
+    </div>
+    <span class="text-xs font-semibold text-center text-gray-700 dark:text-gray-300">
+        Community
+    </span>
+</button>
+
+    <script>
+
+
+async function handleCommunityClick() {
+    const email = localStorage.getItem("userEmail");
+
+    if (!email) {
+        alert("Please login again");
+        return;
+    }
+
+    try {
+        const res = await fetch(
+            `http://localhost:3000/check-membership?email=${email}`
+        );
+        const data = await res.json();
+
+        if (data.membershipStatus === "active") {
+            // ✅ unlock
+            localStorage.setItem("membershipActive", "true"); // optional cache
+            window.location.href = "community.html";
+        } else {
+            // ❌ locked
+            showMembershipPopup();
+        }
+
+    } catch (err) {
+        alert("Server error. Try again.");
+        console.error(err);
+    }
+}
+
+
+
+function showMembershipPopup() {
+    document.getElementById("membershipModal").classList.remove("hidden");
+}
+
+function closeMembershipPopup() {
+    document.getElementById("membershipModal").classList.add("hidden");
+}
+</script>
+<div id="membershipModal"
+     class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+    <div class="bg-white dark:bg-[#111] rounded-xl p-6 w-[90%] max-w-sm text-center">
+        <h2 class="text-lg font-bold mb-2">Community Locked 🔒</h2>
+
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+            Unlock membership to access the community and view admin messages.
+        </p>
+
+        <div class="flex gap-3 justify-center">
+            <button onclick="closeMembershipPopup()"
+                class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700">
+                Cancel
+            </button>
+
+            <button onclick="window.location.href='Donation.html'"
+                class="px-4 py-2 rounded-lg bg-orange-500 text-white">
+                Unlock Membership
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+            <button onclick="window.location.href='donation.html'" class="flex flex-col items-center gap-2 group">
+                <div
+                    class="size-16 rounded-2xl bg-white dark:bg-white/5 border border-orange-100 dark:border-white/10 shadow-sm flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-[30px]">volunteer_activism</span>
+                </div>
+                <span class="text-xs font-semibold text-center text-gray-700 dark:text-gray-300">Seva / Donate</span>
+            </button>
+
+            <button onclick="window.location.href='userCommAffiTemp.html'" class="flex flex-col items-center gap-2 group">
+                <div
+                    class="size-16 rounded-2xl bg-white dark:bg-white/5 border border-orange-100 dark:border-white/10 shadow-sm flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-[30px] material-symbols-filled">temple_hindu</span>
+                </div>
+                <span class="text-xs font-semibold text-center text-gray-700 dark:text-gray-300">Temple</span>
+            </button>
+        </div>
+
+
+       
+
+        <div class="px-4 pb-4">
+            <div class="flex items-center justify-between mb-4 pt-2">
+                <h3 class="text-[#181411] dark:text-white text-lg font-bold leading-tight tracking-tight">Upcoming
+                    Events</h3>
+            </div>
+        </div>
+        <div class="px-4 pb-6">
+            <div id="eventsContainer" class="flex flex-col gap-3"></div>
+        </div>
+
+
+
+        <script>
+            async function loadEvents() {
+                const res = await fetch("https://hindu-cc0q.onrender.com/events/user/events");
+                const events = await res.json();
+
+                const container = document.getElementById("eventsContainer");
+                container.innerHTML = "";
+
+                events.forEach(event => {
+                    const dateObj = new Date(event.eventDate);
+                    const month = dateObj.toLocaleString("en-US", { month: "short" }).toUpperCase();
+                    const day = dateObj.getDate();
+
+                    const card = document.createElement("div");
+                    card.className =
+                        "flex items-center justify-between bg-white dark:bg-white/5 border border-orange-100 dark:border-white/10 rounded-2xl px-4 py-3 shadow-sm hover:shadow-md transition";
+
+
+                    card.innerHTML = `
+          <div class="flex items-center gap-4">
+            
+            <!-- Date Box -->
+            <div class="text-center bg-orange-50 dark:bg-orange-500/10 rounded-lg px-2 py-1">
+
+              <p class="text-xs text-gray-400">${month}</p>
+              <p class="text-lg font-bold">${day}</p>
+            </div>
+
+            <!-- Event Info -->
+            <div>
+              <h2 class="text-sm font-semibold text-[#181411] dark:text-white">
+
+                ${event.eventName}
+              </h2>
+             <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+
+                ⏰ ${event.eventTime} • 📍 ${event.eventLocation}
+              </p>
+<p class="text-xs text-gray-500 dark:text-gray-500 mt-1 line-clamp-1">
+                ${event.description || ""}
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Arrow -->
+          <div class="text-gray-500 text-lg">
+            ›
+          </div>
+        `;
+
+                    container.appendChild(card);
+                });
+            }
+
+            loadEvents();
+        </script>
+
+    </div>
+    <div
+        class="fixed bottom-0 w-full bg-white/95 dark:bg-background-dark/95 backdrop-blur-lg border-t border-orange-100 dark:border-white/10 pb-safe pt-2 px-2 z-50">
+        <div class="flex justify-around items-center h-16 pb-2">
+            <button class="flex flex-1 flex-col items-center justify-center gap-1 text-primary">
+                <span class="material-symbols-outlined text-[24px] material-symbols-filled">home</span>
+                <span class="text-[10px] font-bold">Home</span>
+            </button>
+            
+            
+            <button onclick="window.location.href='user-profile.html'"
+                class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[24px]">person</span>
+                <span class="text-[10px] font-medium">Profile</span>
+            </button>
+           
+        </div>
+    </div>
+
+</body>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        /* ================= USER NAME & GREETING ================= */
+        const userName = localStorage.getItem('userName');
+        if (userName) {
+            const headerNameElement = document.getElementById('dashboard-user-name');
+            if (headerNameElement) {
+                headerNameElement.textContent = userName;
+            }
+
+            const greetingElement = document.getElementById('dashboard-greeting');
+            if (greetingElement) {
+                greetingElement.textContent = `Namaste, ${userName} 🙏`;
+            }
+        }
+
+        /* ================= BHAGAVAD GITA QUOTES ================= */
+        const quotes = [
+    { text: "You have the right to work, but never to the fruit of work.", author: "Bhagavad Gita 2.47" },
+    { text: "A man is made by his belief. As he believes, so he is.", author: "Bhagavad Gita 17.3" },
+    { text: "Change is the law of the universe.", author: "Bhagavad Gita 2.14" },
+    { text: "The soul is neither born, nor does it ever die.", author: "Bhagavad Gita 2.20" },
+    { text: "Perform your duty with devotion and without attachment.", author: "Bhagavad Gita 3.19" },
+    { text: "A person can rise through the efforts of his own mind.", author: "Bhagavad Gita 6.5" },
+    { text: "There is no happiness for one who doubts.", author: "Bhagavad Gita 4.40" },
+    { text: "Whatever action a great man performs, common men follow.", author: "Bhagavad Gita 3.21" },
+    { text: "One who sees inaction in action is wise.", author: "Bhagavad Gita 4.18" },
+    { text: "The mind is the best friend and the worst enemy.", author: "Bhagavad Gita 6.6" },
+
+    { text: "Those attached to results are bound by fear.", author: "Bhagavad Gita 2.49" },
+    { text: "Fix your mind on Me, and you will come to Me.", author: "Bhagavad Gita 9.34" },
+    { text: "Among thousands, one strives for perfection.", author: "Bhagavad Gita 7.3" },
+    { text: "I am the source of all creation.", author: "Bhagavad Gita 10.8" },
+    { text: "Knowledge is the purest thing in the world.", author: "Bhagavad Gita 4.38" },
+    { text: "A calm mind brings inner peace.", author: "Bhagavad Gita 2.64" },
+    { text: "Do your duty without expecting rewards.", author: "Bhagavad Gita 2.50" },
+    { text: "Fearlessness is born of purity.", author: "Bhagavad Gita 16.1" },
+    { text: "Self-control leads to happiness.", author: "Bhagavad Gita 6.7" },
+    { text: "The wise are not disturbed by pleasure or pain.", author: "Bhagavad Gita 2.15" },
+
+    { text: "One who is content is truly rich.", author: "Bhagavad Gita 4.22" },
+    { text: "Offer all actions to God.", author: "Bhagavad Gita 3.30" },
+    { text: "Even a little effort saves from great fear.", author: "Bhagavad Gita 2.40" },
+    { text: "The ignorant work for personal gain.", author: "Bhagavad Gita 3.25" },
+    { text: "Detachment leads to freedom.", author: "Bhagavad Gita 5.3" },
+    { text: "The disciplined soul is happy.", author: "Bhagavad Gita 6.28" },
+    { text: "I am equal to all beings.", author: "Bhagavad Gita 9.29" },
+    { text: "The soul cannot be cut or burned.", author: "Bhagavad Gita 2.23" },
+    { text: "Those who surrender cross beyond illusion.", author: "Bhagavad Gita 7.14" },
+    { text: "Action is better than inaction.", author: "Bhagavad Gita 3.8" },
+
+    { text: "Renunciation brings peace.", author: "Bhagavad Gita 5.12" },
+    { text: "The senses drag away the mind.", author: "Bhagavad Gita 2.60" },
+    { text: "Control the senses and attain wisdom.", author: "Bhagavad Gita 2.61" },
+    { text: "The yogi is greater than the ascetic.", author: "Bhagavad Gita 6.46" },
+    { text: "Devotion purifies the heart.", author: "Bhagavad Gita 12.2" },
+    { text: "Anger leads to destruction.", author: "Bhagavad Gita 2.63" },
+    { text: "The self is eternal.", author: "Bhagavad Gita 2.24" },
+    { text: "The balanced mind is peaceful.", author: "Bhagavad Gita 6.9" },
+    { text: "True knowledge sees unity.", author: "Bhagavad Gita 5.18" },
+    { text: "Sacrifice purifies action.", author: "Bhagavad Gita 3.13" },
+
+    { text: "He who hates none is dear to Me.", author: "Bhagavad Gita 12.15" },
+    { text: "Work done as worship liberates.", author: "Bhagavad Gita 18.46" },
+    { text: "Faith determines destiny.", author: "Bhagavad Gita 17.3" },
+    { text: "The ego binds the soul.", author: "Bhagavad Gita 3.27" },
+    { text: "The wise remain steady.", author: "Bhagavad Gita 2.55" },
+    { text: "Meditation leads to self-realization.", author: "Bhagavad Gita 6.20" },
+    { text: "Offer even a leaf with devotion.", author: "Bhagavad Gita 9.26" },
+    { text: "Freedom comes from detachment.", author: "Bhagavad Gita 18.49" },
+    { text: "The mind must be trained.", author: "Bhagavad Gita 6.35" },
+    { text: "Perform duty according to your nature.", author: "Bhagavad Gita 18.47" },
+
+    { text: "Wisdom burns all karma.", author: "Bhagavad Gita 4.37" },
+    { text: "The self is unborn and eternal.", author: "Bhagavad Gita 2.30" },
+    { text: "Those who see Me everywhere attain peace.", author: "Bhagavad Gita 6.30" },
+    { text: "The disciplined soul is fearless.", author: "Bhagavad Gita 6.15" },
+    { text: "Lust is the enemy of wisdom.", author: "Bhagavad Gita 3.39" },
+    { text: "Control desire through wisdom.", author: "Bhagavad Gita 3.43" },
+    { text: "He who renounces ego attains peace.", author: "Bhagavad Gita 2.71" },
+    { text: "Devotion leads to liberation.", author: "Bhagavad Gita 12.20" },
+    { text: "The knower of truth is free.", author: "Bhagavad Gita 4.39" },
+    { text: "Surrender brings freedom.", author: "Bhagavad Gita 18.66" },
+
+    { text: "I dwell in the hearts of all.", author: "Bhagavad Gita 15.15" },
+    { text: "The self controls destiny.", author: "Bhagavad Gita 6.5" },
+    { text: "True renunciation is inner.", author: "Bhagavad Gita 5.1" },
+    { text: "Peace follows self-control.", author: "Bhagavad Gita 2.64" },
+    { text: "Knowledge leads to liberation.", author: "Bhagavad Gita 13.24" },
+    { text: "The yogi is always content.", author: "Bhagavad Gita 6.8" },
+    { text: "Detachment is true freedom.", author: "Bhagavad Gita 2.48" },
+    { text: "Those free from desire find peace.", author: "Bhagavad Gita 2.70" },
+    { text: "The Supreme is reached through devotion.", author: "Bhagavad Gita 11.54" },
+    { text: "Act without ego and fear.", author: "Bhagavad Gita 18.30" }
+];
+
+        let currentQuoteIndex = 0;
+
+        // Select existing quote elements (no HTML changes)
+        const quoteTextElement = document.querySelector(
+            '.relative.z-10 p.font-serif'
+        );
+        const quoteAuthorElement = document.querySelector(
+            '.relative.z-10 span.text-xs'
+        );
+
+        function updateQuote() {
+            if (!quoteTextElement || !quoteAuthorElement) return;
+
+            const quote = quotes[currentQuoteIndex];
+            quoteTextElement.textContent = `"${quote.text}"`;
+            quoteAuthorElement.textContent = `— ${quote.author}`;
+
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        }
+
+        // First quote immediately
+        updateQuote();
+
+        // Change quote every 3 seconds
+        setInterval(updateQuote, 3000);
+    });
+</script>
+
+
+</html>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seva & Support - Temple Restoration Fund</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-gold: #D97706;
+            --secondary-gold: #F59E0B;
+            --dark-brown: #431407;
+            --light-brown: #78350F;
+            --beige-bg: #FFFCF5;
+            --light-beige: #FFFBEB;
+            --progress-color: #EA580C;
+            --shadow-color: rgba(234, 88, 12, 0.15);
+        }
+
+        body {
+            background-color: var(--beige-bg);
+            color: var(--dark-brown);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px var(--shadow-color);
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #EA580C 0%, #D97706 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: float 25s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-30px, -30px) rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-style: italic;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-section {
+            padding: 25px 30px;
+            background-color: var(--light-beige);
+            border-bottom: 2px dashed var(--light-brown);
+        }
+
+        .fund-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-brown);
+            text-align: center;
+        }
+
+        .progress-container {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #EA580C, #F59E0B);
+            height: 100%;
+            width: 44%;
+            border-radius: 10px;
+            position: relative;
+            transition: width 1.5s ease-in-out;
+            animation: progressFill 1.5s ease-out;
+        }
+
+        @keyframes progressFill {
+            0% { width: 0%; }
+            100% { width: 44%; }
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-brown);
+            margin-top: 5px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--light-brown);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+            color: var(--light-brown);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab.active {
+            background-color: white;
+            color: var(--dark-brown);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-gold);
+            animation: tabUnderline 0.5s ease-out;
+        }
+
+        @keyframes tabUnderline {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+
+        .tab:hover:not(.active) {
+            background-color: #f0f0f0;
+            color: var(--dark-brown);
+        }
+
+        .tab-content {
+            padding: 30px;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .donation-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .donation-option {
+            background-color: var(--light-beige);
+            border: 2px solid var(--light-brown);
+            border-radius: 10px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donation-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+            border-color: var(--primary-gold);
+            background-color: #FEF3C7;
+        }
+
+        .donation-option.selected {
+            background-color: #FEF3C7;
+            border-color: var(--primary-gold);
+            border-width: 3px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+
+        .donation-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(234, 88, 12, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+        }
+
+        .donation-option:hover::before {
+            animation: shine 0.8s ease-out;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .donation-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--dark-brown);
+        }
+
+        .donation-currency {
+            font-size: 1.2rem;
+            color: var(--light-brown);
+            margin-left: 3px;
+        }
+
+        .tier-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .tier-card {
+            background-color: var(--light-beige);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow-color);
+            border-color: var(--primary-gold);
+        }
+
+        .tier-header {
+            background: linear-gradient(135deg, #EA580C 0%, #D97706 100%);
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .tier-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .tier-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .tier-period {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .tier-features {
+            padding: 20px;
+            list-style-type: none;
+        }
+
+        .tier-features li {
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--light-brown);
+            display: flex;
+            align-items: center;
+        }
+
+        .tier-features li:last-child {
+            border-bottom: none;
+        }
+
+        .tier-features i {
+            color: var(--primary-gold);
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .select-tier-btn {
+            display: block;
+            width: 80%;
+            margin: 0 auto 25px;
+            padding: 15px;
+            background: linear-gradient(135deg, #EA580C 0%, #D97706 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(234, 88, 12, 0.3);
+        }
+
+        .select-tier-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(234, 88, 12, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .donor-info {
+            margin-bottom: 30px;
+        }
+
+        .donor-info label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark-brown);
+        }
+
+        .donor-info input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--light-brown);
+            border-radius: 10px;
+            font-size: 1rem;
+            background-color: var(--light-beige);
+            transition: all 0.3s ease;
+        }
+
+        .donor-info input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.2);
+        }
+
+        .payment-recipient {
+            background-color: var(--light-beige);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary-gold);
+        }
+
+        .recipient-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-brown);
+        }
+
+        .recipient-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--dark-brown);
+        }
+
+        .recipient-phone {
+            color: var(--light-brown);
+        }
+
+        .tax-note {
+            font-size: 0.9rem;
+            text-align: center;
+            color: var(--light-brown);
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #FEF3C7;
+            border-radius: 10px;
+            border: 1px solid #FDE68A;
+        }
+
+        .secure-seva-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #EA580C 0%, #D97706 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(234, 88, 12, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .secure-seva-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(234, 88, 12, 0.6);
+            letter-spacing: 1px;
+        }
+
+        .secure-seva-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, transparent 20%, rgba(255,255,255,0.3) 50%, transparent 80%);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+
+        .secure-seva-btn:hover::after {
+            transform: translateX(100%) rotate(30deg);
+        }
+
+        .btn-amount {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            margin-left: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            font-style: italic;
+            color: var(--light-brown);
+            font-size: 1.1rem;
+            padding: 20px;
+            border-top: 1px solid var(--light-brown);
+        }
+
+        @media (max-width: 768px) {
+            .donation-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tier-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .donation-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+        }
+
+        /* Animation for tier selection */
+        .tier-card.selected {
+            border-color: var(--primary-gold);
+            border-width: 3px;
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.3), 0 15px 30px var(--shadow-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>Seva & Support</h1>
+            <p class="subtitle">Annam Bahu Kurvita</p>
+            <p class="tagline">The wealth that one gives away is the only wealth that one truly keeps.</p>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <div class="fund-title">TEMPLE RESTORATION FUND</div>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+          
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" data-tab="one-time">ONE-TIME SEVA</div>
+            <div class="tab" data-tab="membership">MEMBERSHIP</div>
+        </div>
+
+        <!-- One-time Seva Tab Content -->
+        <div id="one-time" class="tab-content active">
+            <div class="donation-options">
+                <div class="donation-option" data-amount="101" data-type="One-time">
+                    <div class="donation-amount">101<span class="donation-currency">₹</span></div>
+                </div>
+                <div class="donation-option" data-amount="501" data-type="One-time">
+                    <div class="donation-amount">501<span class="donation-currency">₹</span></div>
+                </div>
+                <div class="donation-option" data-amount="1001" data-type="One-time">
+                    <div class="donation-amount">1001<span class="donation-currency">₹</span></div>
+                </div>
+                <div class="donation-option" data-amount="2101" data-type="One-time">
+                    <div class="donation-amount">2101<span class="donation-currency">₹</span></div>
+                </div>
+                <div class="donation-option" data-amount="5001" data-type="One-time">
+                    <div class="donation-amount">5001<span class="donation-currency">₹</span></div>
+                </div>
+                <div class="donation-option" data-amount="0" data-type="One-time">
+                    <div class="donation-amount">Other<span class="donation-currency"></span></div>
+                </div>
+            </div>
+
+            <div class="donor-info">
+                <label for="dedicated-name">Dedicated in name of...</label>
+                <input type="text" id="dedicated-name" placeholder="Enter name for dedication">
+            </div>
+
+            <div class="payment-recipient">
+                <div class="recipient-title">PAYMENT RECIPIENT</div>
+                <div class="recipient-name">Harish Chauhan</div>
+                <div class="recipient-phone">+91 96111 01592</div>
+            </div>
+
+            <div class="tax-note">
+                ALL DONATIONS ARE TAX - EXEMPT UNDER SECTION 805 OF THE IT ACT.<br>
+                MAY YOUR CONTRIBUTION BRING PEACE AND PROSPERITY.
+            </div>
+
+            <button class="secure-seva-btn" id="oneTimeSevaBtn" onclick="proceedToPayment('one-time')">
+                Secure Seva <span class="btn-amount" id="oneTimeAmount">₹101 →</span>
+            </button>
+        </div>
+
+        <!-- Membership Tab Content -->
+        <div id="membership" class="tab-content">
+            <div class="tier-container">
+                <div class="tier-card" data-tier-amount="251" data-tier-name="Basic Seva">
+                    <div class="tier-header">
+                        <div class="tier-name">Basic Seva</div>
+                        <div class="tier-price">₹251<span class="tier-period"> /mo</span></div>
+                    </div>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check-circle"></i> Access to Satsang</li>
+                        <li><i class="fas fa-check-circle"></i> Monthly Newsletter</li>
+                        <li><i class="fas fa-check-circle"></i> Sada Prashadam</li>
+                    </ul>
+                    <button class="select-tier-btn" onclick="selectTier(this)">SELECT TIER</button>
+                </div>
+
+                <div class="tier-card" data-tier-amount="1101" data-tier-name="Silver Seeker">
+                    <div class="tier-header">
+                        <div class="tier-name">Silver Seeker</div>
+                        <div class="tier-price">₹1,101<span class="tier-period"> /mo</span></div>
+                    </div>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check-circle"></i> Access to Satsang</li>
+                        <li><i class="fas fa-check-circle"></i> MahaAarti</li>
+                        <li><i class="fas fa-check-circle"></i> Mewa Bhog Prashadam</li>
+                    </ul>
+                    <button class="select-tier-btn" onclick="selectTier(this)">SELECT TIER</button>
+                </div>
+
+                <div class="tier-card" data-tier-amount="5001" data-tier-name="Gold Guardian">
+                    <div class="tier-header">
+                        <div class="tier-name">Gold Guardian</div>
+                        <div class="tier-price">₹5,001<span class="tier-period"> /mo</span></div>
+                    </div>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check-circle"></i> Access to Satsang</li>
+                        <li><i class="fas fa-check-circle"></i> VIP Darshnam</li>
+                        <li><i class="fas fa-check-circle"></i> Mewa Mishthan Prasad</li>
+
+                    </ul>
+                    <button class="select-tier-btn" onclick="selectTier(this)">SELECT TIER</button>
+                </div>
+            </div>
+
+            <div class="payment-recipient">
+                <div class="recipient-title">PAYMENT RECIPIENT</div>
+                <div class="recipient-name">Harish Chauhan</div>
+                <div class="recipient-phone">+91 96114 1382</div>
+            </div>
+
+            <div class="tax-note">
+                ALL DONATIONS ARE TAX - EXEMPT UNDER SECTION 805 OF THE IT ACT.<br>
+                MAY YOUR CONTRIBUTION BRING PEACE AND PROSPERITY.
+            </div>
+
+            <button class="secure-seva-btn" id="membershipSevaBtn" onclick="proceedToPayment('membership')">
+                Secure Seva <span class="btn-amount" id="membershipAmount">Proceed →</span>
+            </button>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="footer-note">
+            Your contribution helps preserve our sacred heritage for generations to come
+        </div>
+    </div>
+
+    <script>
+        // Global variables to store selected amounts
+        let selectedOneTimeAmount = 101;
+        let selectedMembershipAmount = 0;
+        let selectedMembershipTier = '';
+
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and tab contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding tab content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Donation option selection (One-time)
+        document.querySelectorAll('.donation-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const amount = parseInt(option.getAttribute('data-amount'));
+                
+                // Remove selection from all options
+                document.querySelectorAll('.donation-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Highlight selected option
+                option.classList.add('selected');
+                
+                // Update selected amount
+                if (amount === 0) {
+                    // Handle "Other" option
+                    const customAmount = prompt('Enter your donation amount (₹):');
+                    if (customAmount && !isNaN(customAmount) && parseInt(customAmount) > 0) {
+                        selectedOneTimeAmount = parseInt(customAmount);
+                        document.getElementById('oneTimeAmount').innerHTML = `₹${selectedOneTimeAmount} →`;
+                    }
+                } else {
+                    selectedOneTimeAmount = amount;
+                    document.getElementById('oneTimeAmount').innerHTML = `₹${amount} →`;
+                }
+            });
+        });
+
+        // Tier selection functionality (Membership)
+        function selectTier(button) {
+            const tierCard = button.closest('.tier-card');
+            const amount = parseInt(tierCard.getAttribute('data-tier-amount'));
+            const tierName = tierCard.getAttribute('data-tier-name');
+            
+            // Remove selected class from all tier cards
+            document.querySelectorAll('.tier-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Reset all tier buttons
+            document.querySelectorAll('.select-tier-btn').forEach(btn => {
+                btn.textContent = 'SELECT TIER';
+                btn.style.backgroundColor = '';
+            });
+            
+            // Add selected class to clicked tier card
+            tierCard.classList.add('selected');
+            
+            // Update button text
+            button.textContent = 'SELECTED ✓';
+            button.style.background = 'linear-gradient(135deg, #16A34A 0%, #22C55E 100%)';
+            
+            // Store selected tier info
+            selectedMembershipAmount = amount;
+            selectedMembershipTier = tierName;
+            
+            // Update the main button
+            document.getElementById('membershipAmount').innerHTML = `₹${amount} →`;
+        }
+
+        // Proceed to payment function
+        function proceedToPayment(type) {
+            let amount = 0;
+            let tierName = '';
+            
+            if (type === 'one-time') {
+                amount = selectedOneTimeAmount;
+                tierName = 'One-time Donation';
+            } else {
+                if (selectedMembershipAmount === 0) {
+                    alert('Please select a membership tier first!');
+                    return;
+                }
+                amount = selectedMembershipAmount;
+                tierName = selectedMembershipTier;
+            }
+            
+            // Get dedication name if provided
+            const dedicationName = document.getElementById('dedicated-name').value;
+            
+            // Redirect to QR payment page with amount
+            let url = `QR.html?amount=${amount}&tier=${encodeURIComponent(tierName)}`;
+            if (dedicationName) {
+                url += `&dedication=${encodeURIComponent(dedicationName)}`;
+            }
+            
+            window.location.href = url;
+        }
+
+        // Initialize with first donation option selected
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.donation-option[data-amount="101"]').click();
+        });
+    </script>
+</body>
+</html>

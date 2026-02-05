@@ -19,6 +19,7 @@ app.use('/member', require('./memb-prof'));
 app.use('/doc-verify', require('./doc-verify'));
 app.use('/login', require('./loginpage'));
 app.use('/frontui-temple', require('./user-temple-frontUI'));
+app.use('/events', require('./show-events-user'));
 
 
 
