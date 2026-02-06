@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
     <title>Community - Temple Member</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -193,10 +193,19 @@
                 display: none;
             }
         }
+        @media (max-width: 640px) {
+  body {
+    min-height: 100dvh; /* dynamic viewport height */
+  }
+
+  section {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
     </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark antialiased font-display h-screen overflow-hidden flex flex-col">
+<body class="bg-background-light dark:bg-background-dark antialiased font-display min-h-screen flex flex-col">
     <div class="fixed inset-0 theme-pattern pointer-events-none z-0"></div>
 
     <!-- Mobile Sidebar Overlay -->
@@ -244,7 +253,7 @@
         <div class="flex items-center gap-2">
             <button
                 class="flex size-10 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
-                <span class="material-symbols-outlined text-text-main dark:text-text-light">search</span>
+                
             </button>
             <button id="themeToggle"
                 class="flex size-10 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
