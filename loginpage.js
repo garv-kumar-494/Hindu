@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+   name: {
+    type: String,
+    required: true   // 👈 very important
+  },
 });
 const User = mongoose.model("User", userSchema, "members");
 
@@ -41,7 +45,8 @@ router.post("/login", async (req, res) => {
     // 3️⃣ Success
     res.json({
       message: "Login successful",
-      email: user.email
+      email: user.email,
+      name: user.name
     });
 
   } catch (err) {

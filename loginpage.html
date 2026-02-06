@@ -233,10 +233,12 @@
             const data = await res.json();
 
             if (res.ok) {
-                // Store user session data
-                const userData = { email, loggedIn: true };
+                localStorage.setItem("userName", data.name);
+                localStorage.setItem("userEmail", data.email);
+                localStorage.setItem("loggedIn", "true");
+                //const userData = { email, loggedIn: true };
                 alert("Login successful! Welcome back.");
-                // Redirect to dashboard or home page
+              
                 window.location.href = "dashboard.html";
             } else {
                 alert(data.message || "Invalid credentials");
