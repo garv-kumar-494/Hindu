@@ -168,7 +168,7 @@ async function handleCommunityClick() {
 
     try {
         const res = await fetch(
-            `http://localhost:3000/check-membership?email=${email}`
+            `https://hindu-cc0q.onrender.com/membership/check-membership?email=${email}`
         );
         const data = await res.json();
 
