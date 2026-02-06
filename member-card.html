@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sangha ID - Member Card</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#D97706",
+                        "primary-dark": "#B45309",
+                        "background-light": "#FFFCF5",
+                        "background-dark": "#1C1917",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#292524",
+                        "border-light": "#FED7AA",
+                        "border-dark": "#78350F",
+                        "text-main": "#431407",
+                        "text-light": "#FFFBEB",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+
+        .card-gradient {
+            background: linear-gradient(135deg, #1a0d06 0%, #2d1810 50%, #1a0d06 100%);
+        }
+
+        .gold-border {
+            border: 3px solid;
+            border-image: linear-gradient(135deg, #B8860B, #DAA520, #FFD700, #DAA520, #B8860B) 1;
+            border-radius: 24px;
+        }
+
+        .verified-badge {
+            background: linear-gradient(135deg, #DC2626, #EF4444);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+        }
+
+        .avatar-ring {
+            border: 4px solid #D97706;
+            box-shadow: 0 0 20px rgba(217, 119, 6, 0.4);
+        }
+
+        .qr-code-bg {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark min-h-screen flex items-center justify-center p-4 font-display">
+    
+    <!-- Member Card Modal -->
+    <div class="w-full max-w-md">
+        <!-- Close Button -->
+        <button onclick="closeCard()" 
+            class="absolute top-4 left-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            <span class="material-symbols-outlined text-white">close</span>
+        </button>
+
+        <!-- Card Container -->
+        <div class="card-gradient rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+            <!-- Gold Border Overlay -->
+            <div class="absolute inset-3 border-4 rounded-2xl pointer-events-none"
+                style="border-image: linear-gradient(135deg, #B8860B, #DAA520, #FFD700, #DAA520, #B8860B) 1;"></div>
+            
+            <!-- Content -->
+            <div class="relative z-10">
+                <!-- Header -->
+                <div class="text-center mb-6">
+                    <h1 class="text-2xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2">
+                        SANGHA ID
+                    </h1>
+                    
+                    <!-- Verified Badge -->
+                    <div class="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-500 px-4 py-1.5 rounded-full text-xs font-bold text-white tracking-wider">
+                        <span class="material-symbols-outlined text-sm">verified</span>
+                        HYP VERIFIED
+                    </div>
+                </div>
+
+                <!-- Organization Name -->
+                <div class="text-center mb-6">
+                    <h2 class="text-white text-xl font-serif font-bold mb-1" id="orgName">Hindu Yodha Parishad</h2>
+                </div>
+
+                <!-- Avatar Section -->
+                <div class="flex flex-col items-center mb-6">
+                    <div class="relative mb-4">
+                        <div class="w-28 h-28 rounded-full avatar-ring overflow-hidden bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                            <img id="userAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23D97706' width='100' height='100'/%3E%3Ctext x='50' y='50' font-size='40' text-anchor='middle' dy='.35em' fill='white' font-family='Arial'%3EA%3C/text%3E%3C/svg%3E" 
+                                alt="Member Avatar" class="w-full h-full object-cover" />
+                        </div>
+                        <!-- Verified Check Badge -->
+                        <div class="absolute bottom-0 right-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center border-4 border-background-dark">
+                            <span class="material-symbols-outlined text-white text-sm">check</span>
+                        </div>
+                    </div>
+
+                    <!-- Member Name -->
+                    <h3 class="text-white text-2xl font-bold mb-1" id="memberName">Loading...</h3>
+                    <p class="text-gray-400 text-sm" id="memberSince">VERIFIED MEMBER SINCE 2023</p>
+                </div>
+
+                <!-- Member Details -->
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <!-- Membership ID -->
+                    <div>
+                        <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Membership ID</p>
+                        <p class="text-white font-bold" id="membershipId">8829-1029-44</p>
+                    </div>
+
+                    <!-- Status Tier -->
+                    <div class="text-right">
+                        <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Status Tier</p>
+                        <p class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 font-bold" id="statusTier">GOLD MEMBER</p>
+                    </div>
+
+                    <!-- Affiliation -->
+                    <div class="col-span-2">
+                        <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Affiliation</p>
+                        <p class="text-white font-semibold" id="affiliation">Loading...</p>
+                    </div>
+                </div>
+
+                
+
+                <!-- Action Buttons -->
+                <div class="space-y-3">
+                    <button onclick="saveToGallery()" 
+                        class="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg">
+                        <span class="material-symbols-outlined">download</span>
+                        Save to Phone Gallery
+                    </button>
+
+                    <button onclick="shareCard()" 
+                        class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all">
+                        <span class="material-symbols-outlined">share</span>
+                        Share Membership Card
+                    </button>
+                </div>
+
+                <!-- Footer Text -->
+                <div class="mt-6 text-center">
+                    <p class="text-gray-500 text-xs leading-relaxed">
+                        "ESTABLISHED IN TRUTH, PROTECTED BY DHARMA"<br>
+                        THIS CARD IS PROPERTY OF HINDU YODHA PARISHAD.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script>
+        // Fetch data from localStorage
+        const userName = localStorage.getItem('userName');
+        const userEmail = localStorage.getItem('userEmail');
+        const userTemple = localStorage.getItem('temple') || 'Shri Shiva Mandir';
+        
+        // Generate membership ID based on email
+        function generateMembershipId(email) {
+            if (!email) return '8829-1029-44';
+            const hash = email.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            const id1 = String(hash).slice(0, 4).padStart(4, '8');
+            const id2 = String(hash * 2).slice(0, 4).padStart(4, '1');
+            const id3 = String(hash % 100).padStart(2, '4');
+            return `${id1}-${id2}-${id3}`;
+        }
+
+        // Get initials for avatar
+        function getInitials(name) {
+            if (!name) return 'M';
+            const parts = name.trim().split(' ');
+            if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+            return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+        }
+
+        // Generate avatar SVG
+        function generateAvatar(name) {
+            const initials = getInitials(name);
+            return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23F59E0B;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23D97706;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23grad)' width='100' height='100'/%3E%3Ctext x='50' y='50' font-size='40' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E${initials}%3C/text%3E%3C/svg%3E`;
+        }
+
+        // Update card with user data
+        function updateCard() {
+            const memberNameEl = document.getElementById('memberName');
+            const membershipIdEl = document.getElementById('membershipId');
+            const affiliationEl = document.getElementById('affiliation');
+            const userAvatarEl = document.getElementById('userAvatar');
+
+            if (userName) {
+                memberNameEl.textContent = userName;
+                userAvatarEl.src = generateAvatar(userName);
+            } else {
+                memberNameEl.textContent = 'Guest Member';
+            }
+
+            if (userEmail) {
+                membershipIdEl.textContent = generateMembershipId(userEmail);
+            }
+
+            if (userTemple) {
+                affiliationEl.textContent = userTemple;
+            }
+
+            // Generate QR Code
+            const qrData = JSON.stringify({
+                name: userName || 'Guest',
+                email: userEmail || 'guest@example.com',
+                id: generateMembershipId(userEmail),
+                temple: userTemple || 'Shri Shiva Mandir',
+                verified: true
+            });
+
+            QRCode.toCanvas(document.createElement('canvas'), qrData, {
+                width: 96,
+                margin: 1,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            }, function (error, canvas) {
+                if (error) console.error(error);
+                document.getElementById('qrCode').innerHTML = '';
+                document.getElementById('qrCode').appendChild(canvas);
+            });
+        }
+
+        // Close card function
+        function closeCard() {
+            window.history.back();
+        }
+
+        // Save to gallery function
+        function saveToGallery() {
+            alert('Saving to gallery... (This would trigger a download in a real app)');
+            // In a real implementation, you would convert the card to an image and download it
+        }
+
+        // Share card function
+        function shareCard() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Sangha ID',
+                    text: `${userName || 'Member'} - Hindu Yodha Parishad`,
+                    url: window.location.href
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                alert('Sharing... (Share functionality would work on mobile devices)');
+            }
+        }
+
+        // Initialize card on load
+        document.addEventListener('DOMContentLoaded', updateCard);
+    </script>
+</body>
+
+</html>
