@@ -23,8 +23,11 @@ app.use('/events', require('./show-events-user'));
 app.use('/dashboard-temple', require('./user-temple-frontUI'));
 app.use('/membership', require('./memb-prof'));
 
+app.use('/load-members', require('./memb-prof'));
 
-
+app.use('/usermessage', require('./users-messages'));
+app.use('/adminmessage', require('./users-messages'));
+app.use('/loadusermessages', require('./users-messages'));
 
 
 

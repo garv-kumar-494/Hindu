@@ -378,7 +378,7 @@
         // Load Members Function
         async function loadMembers() {
             try {
-                const res = await fetch("http://localhost:33000/members");
+                const res = await fetch("https://hindu-cc0q.onrender.com/load-members/loadmembers");
                 const members = await res.json();
 
                 const desktopList = document.getElementById("membersList");
@@ -486,7 +486,7 @@ async function sendMessage() {
   chatBox.scrollTop = chatBox.scrollHeight;
   input.value = '';
     // Send message to backend
-  await fetch("http://localhost:34000/user-message", {
+  await fetch("https://hindu-cc0q.onrender.com/usermessage/user-message", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -504,7 +504,7 @@ async function sendMessage() {
 
 async function loadAdminMessages() {
   try {
-    const res = await fetch("http://localhost:34000/admin-messages");
+    const res = await fetch("https://hindu-cc0q.onrender.com/adminmessage/admin-messages");
     const messages = await res.json();
 
     const chatBox = document.getElementById("chatBox");
@@ -552,7 +552,7 @@ loadAdminMessages();
 <script>
 async function loadUserMessages() {
   try {
-    const res = await fetch("http://localhost:40000/load-user-messages");
+    const res = await fetch("https://hindu-cc0q.onrender.com/loadusermessages/load-user-messages");
     const messages = await res.json();
 
     const chatBox = document.getElementById("chatBox");
