@@ -9,7 +9,11 @@ const memberSchema = new mongoose.Schema({
   phone: String,
   email: String,
   password: String,
-  temple: String
+  temple: String,
+  membershipStatus: {
+    type: String,
+    default: "locked"
+    } // 🔒 by default locked
 });
 
 const Member = mongoose.model("Member", memberSchema);
@@ -39,6 +43,35 @@ router.post("/signup", async (req, res) => {
 
   res.json({ message: "Signup successful" });
 });
+
+
+// 🔍 CHECK USER MEMBERSHIP (USER SIDE)
+router.get("/check-membership", async (req, res) => {
+  const { email } = req.query;
+
+  try {
+    const member = await Member.findOne({ email });
+
+    if (!member) {
+      return res.json({ membershipStatus: "locked" });
+    }
+
+    res.json({
+      membershipStatus: member.membershipStatus
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+
+
+
+
+
+
 
 
 module.exports = router;
