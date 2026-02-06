@@ -16,7 +16,7 @@ const memberSchema = new mongoose.Schema({
 });
 
 // 🔹 Model
-const Member = mongoose.model("Member", memberSchema);
+const Membership = mongoose.model("Membership", memberSchema);
 
 
 
@@ -26,7 +26,7 @@ router.get("/check-membership", async (req, res) => {
   const { email } = req.query;
 
   try {
-    const member = await Member.findOne({ email });
+    const member = await Membership.findOne({ email });
 
     if (!member) {
       return res.json({ membershipStatus: "locked" });
