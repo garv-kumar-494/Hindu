@@ -30,7 +30,7 @@ app.use('/adminmessage', require('./users-messages'));
 app.use('/loadusermessages', require('./users-messages'));
 
 
-
+app.use('/frontend-user-temple', require('./memb-prof'));
 
 
 

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Temple Community Members</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.temple-bg {
+  background: radial-gradient(circle at top, #ffedd5, #fff7ed);
+}
+.temple-card {
+  background: linear-gradient(to right, #fff7ed, #ffedd5);
+  border: 1px solid #fed7aa;
+}
+.member-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(217,119,6,0.25);
+}
+</style>
+</head>
+
+<body class="temple-bg min-h-screen">
+
+<!-- Header -->
+<header class="text-center py-8">
+  <h1 class="text-3xl font-bold text-orange-800" style="font-family: Playfair Display">
+    🛕 Temple Community
+  </h1>
+  <p class="text-sm text-orange-700 mt-1">
+    Members grouped by their Mandir
+  </p>
+</header>
+
+<!-- Content -->
+<main class="max-w-5xl mx-auto px-4 pb-16" id="templeContainer">
+  <!-- Temples injected here -->
+</main>
+
+<script>
+async function loadMembers() {
+  try {
+    const res = await fetch("https://hindu-cc0q.onrender.com/frontend-user-temple/frontend-user-temple-group");
+    const members = await res.json();
+
+    // 🔹 Group members by temple
+    const grouped = {};
+    members.forEach(m => {
+      const temple = m.temple || "Unknown Temple";
+      if (!grouped[temple]) grouped[temple] = [];
+      grouped[temple].push(m);
+    });
+
+    const container = document.getElementById("templeContainer");
+    container.innerHTML = "";
+
+    // 🔹 Render temple-wise
+    Object.keys(grouped).forEach(templeName => {
+      const section = document.createElement("section");
+      section.className = "temple-card rounded-2xl p-6 mb-8";
+
+      section.innerHTML = `
+        <h2 class="text-xl font-bold text-orange-800 mb-4 flex items-center gap-2">
+          🛕 ${templeName}
+          <span class="text-xs bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">
+            ${grouped[templeName].length} Members
+          </span>
+        </h2>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          ${grouped[templeName].map(member => `
+            <div class="member-card bg-white rounded-xl p-4 flex items-center gap-4 transition-all">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 
+                          flex items-center justify-center text-white font-bold text-lg">
+                ${member.name.charAt(0).toUpperCase()}
+              </div>
+
+              <div>
+                <p class="font-semibold text-orange-900">
+                  ${member.name}
+                </p>
+                <p class="text-sm text-orange-700">
+                  📞 ${member.phone}
+                </p>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+
+      container.appendChild(section);
+    });
+
+  } catch (err) {
+    console.error("Failed to load members", err);
+  }
+}
+
+// Init
+loadMembers();
+</script>
+
+</body>
+</html>

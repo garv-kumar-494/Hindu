@@ -80,6 +80,17 @@ router.get("/loadmembers", async (req, res) => {
 
 
 
+//🔹 FETCH ALL users temple MEMBERS
+router.get("/frontend-user-temple-group", async (req, res) => {
+  try {
+    const members = await Member.find();
+    res.json(members);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch members" });
+  }
+});
+
+
 
 
 
