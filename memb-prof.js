@@ -9,7 +9,12 @@ const memberSchema = new mongoose.Schema({
   phone: String,
   email: String,
   password: String,
-  temple: String,
+  temple: {
+    name: String,
+    location: String,
+    state: String
+  },
+
   membershipStatus: {
     type: String,
     default: "locked"

@@ -334,6 +334,11 @@
 
             div.onclick = () => {
                 templeInput.value = t.templeName;
+                 selectedTemple = {
+        name: t.templeName,
+        location: t.templeLocation,
+        state: t.templeState
+    };
                 dropdown.classList.add("hidden");
             };
 
@@ -411,7 +416,7 @@
         const res = await fetch("https://hindu-cc0q.onrender.com/member/save", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, phone, email, password, temple }),
+            body: JSON.stringify({ name, phone, email, password, temple: selectedTemple }),
         });
 
         const data = await res.json();
