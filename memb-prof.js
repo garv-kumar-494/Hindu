@@ -10,7 +10,7 @@ const memberSchema = new mongoose.Schema({
   email: String,
   password: String,
   temple: {
-    name: String,
+    type: String,
     location: String,
     state: String
   },
