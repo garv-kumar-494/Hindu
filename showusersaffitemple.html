@@ -55,7 +55,7 @@ async function loadMembers() {
     // 🔹 Group members by temple
     const grouped = {};
     members.forEach(m => {
-      const temple = m.temple || "Unknown Temple";
+      const temple = m.temple?.name || "Unknown Temple";
       if (!grouped[temple]) grouped[temple] = [];
       grouped[temple].push(m);
     });
@@ -71,6 +71,12 @@ async function loadMembers() {
       section.innerHTML = `
         <h2 class="text-xl font-bold text-orange-800 mb-4 flex items-center gap-2">
           🛕 ${templeName}
+<p class="text-sm text-orange-700 mt-1">
+  📍 ${grouped[templeName][0].temple.location}, 
+  ${grouped[templeName][0].temple.state}
+</p>
+
+
           <span class="text-xs bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">
             ${grouped[templeName].length} Members
           </span>
