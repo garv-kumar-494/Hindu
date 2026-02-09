@@ -285,9 +285,9 @@
 
 
 function fetchAdminMessage() {
-  if (!userEmail) return;
+  if (!userName) return;
 
-  fetch(`https://adminbackend-modk.onrender.com/messagefromadmin/member-by-email/${userEmail}`)
+  fetch(`https://hindu-cc0q.onrender.com/messagefromadmin/member-by-name/${encodeURIComponent(userName)}`)
     .then(res => res.json())
     .then(data => {
       if (data.success && data.member.adminMessage) {

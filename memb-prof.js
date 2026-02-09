@@ -103,9 +103,15 @@ router.get("/frontend-user-temple-group", async (req, res) => {
 
 
 
-router.get("/member-by-email/:email", async (req, res) => {
+// 🔹 FETCH MEMBER BY NAME (Admin Message ke liye)
+// 🔹 FETCH MEMBER BY NAME (SAFE VERSION)
+router.get("/member-by-name/:name", async (req, res) => {
   try {
-    const member = await Member.findOne({ email: req.params.email });
+    const name = req.params.name.trim();
+
+    const member = await Member.findOne({
+      name: { $regex: `^${name}$`, $options: "i" } // case-insensitive
+    });
 
     if (!member) {
       return res.json({ success: false });
@@ -117,9 +123,11 @@ router.get("/member-by-email/:email", async (req, res) => {
     });
 
   } catch (err) {
+    console.error(err);
     res.status(500).json({ success: false });
   }
 });
+
 
 
 
