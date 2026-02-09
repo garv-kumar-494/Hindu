@@ -143,6 +143,17 @@
                         <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Status Tier</p>
                         <p class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 font-bold" id="statusTier"> MEMBER</p>
                     </div>
+<!-- Admin Message -->
+<div class="mt-4">
+  <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+    Admin Message
+  </p>
+  <div
+    id="adminMessage"
+    class="text-white bg-white/10 p-3 rounded-xl text-sm">
+    No message from admin
+  </div>
+</div>
 
                     <!-- Affiliation -->
                     <div class="col-span-2">
@@ -155,11 +166,7 @@
 
                 <!-- Action Buttons -->
                 <div class="space-y-3">
-                    <button onclick="saveToGallery()" 
-                        class="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg">
-                        <span class="material-symbols-outlined">download</span>
-                        Save to Phone Gallery
-                    </button>
+                   
 
                     <button onclick="shareCard()" 
                         class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all">
@@ -260,11 +267,7 @@
             window.history.back();
         }
 
-        // Save to gallery function
-        function saveToGallery() {
-            alert('Saving to gallery... (This would trigger a download in a real app)');
-            // In a real implementation, you would convert the card to an image and download it
-        }
+       
 
         // Share card function
         function shareCard() {
@@ -280,8 +283,35 @@
         }
 
         // Initialize card on load
-        document.addEventListener('DOMContentLoaded', updateCard);
+document.addEventListener('DOMContentLoaded', () => {
+  updateCard();
+  fetchAdminMessage();
+});
+
+function fetchAdminMessage() {
+  if (!userEmail) return;
+
+  fetch(`https://adminbackend-modk.onrender.com/messagefromadmin/member-by-email/${userEmail}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.success && data.member.adminMessage) {
+        document.getElementById("adminMessage").innerText =
+          data.member.adminMessage;
+      } else {
+        document.getElementById("adminMessage").innerText =
+          "No message from admin";
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("adminMessage").innerText =
+        "Unable to load message";
+    });
+}
+
     </script>
+
+  
 </body>
 
 </html>

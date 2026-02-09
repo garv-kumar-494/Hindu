@@ -97,6 +97,23 @@ router.get("/frontend-user-temple-group", async (req, res) => {
 
 
 
+router.get("/member-by-email/:email", async (req, res) => {
+  try {
+    const member = await Member.findOne({ email: req.params.email });
+
+    if (!member) {
+      return res.json({ success: false });
+    }
+
+    res.json({
+      success: true,
+      member
+    });
+
+  } catch (err) {
+    res.status(500).json({ success: false });
+  }
+});
 
 
 

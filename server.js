@@ -31,7 +31,7 @@ app.use('/loadusermessages', require('./users-messages'));
 
 
 app.use('/frontend-user-temple', require('./memb-prof'));
-
+app.use('/messagefromadmin', require('./memb-prof'));
 
 
 
