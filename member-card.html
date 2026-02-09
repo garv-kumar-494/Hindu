@@ -282,11 +282,7 @@
             }
         }
 
-        // Initialize card on load
-document.addEventListener('DOMContentLoaded', () => {
-  updateCard();
-  fetchAdminMessage();
-});
+
 
 function fetchAdminMessage() {
   if (!userEmail) return;
@@ -308,6 +304,13 @@ function fetchAdminMessage() {
         "Unable to load message";
     });
 }
+
+
+        // Initialize card on load
+document.addEventListener('DOMContentLoaded', () => {
+  updateCard();
+  fetchAdminMessage();
+});
 
     </script>
 

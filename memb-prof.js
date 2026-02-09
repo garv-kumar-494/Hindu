@@ -18,7 +18,13 @@ const memberSchema = new mongoose.Schema({
   membershipStatus: {
     type: String,
     default: "locked"
-    } // 🔒 by default locked
+    }, // 🔒 by default locked
+
+     // ✅ Admin message (specific user ke liye)
+  adminMessage: {
+    type: String,
+    default: ""
+  }
 });
 
 const Member = mongoose.model("Member", memberSchema);
