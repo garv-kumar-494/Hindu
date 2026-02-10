@@ -82,24 +82,38 @@
 </div>
 
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const memberId = params.get("id");
+const params = new URLSearchParams(window.location.search);
+const memberId = params.get("id");
 
-    // For now we read from localStorage
-    const userName = localStorage.getItem('userName');
-    const userTemple = localStorage.getItem('userTemple');
-    const adminMessage = localStorage.getItem('adminMessage') || "No message from admin";
+if (!memberId) {
+  document.getElementById("verificationCard").innerHTML =
+    "<div class='error'>Invalid QR Code</div>";
+} else {
+  fetch(`https://hindu-cc0q.onrender.com/member-by-id/${memberId}`)
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) throw "Invalid Member";
 
-    if (memberId) {
-        document.getElementById("userName").innerText = userName || "Guest Member";
-        document.getElementById("memberId").innerText = memberId;
-        document.getElementById("userTemple").innerText = userTemple || "No temple info";
-        document.getElementById("adminMessage").innerText = adminMessage;
-    } else {
-        document.getElementById("verificationCard").innerHTML =
-            "<div class='error'>Invalid QR Code</div>";
-    }
+      document.getElementById("memberName").innerText =
+        data.member.name;
+
+      document.getElementById("memberId").innerText =
+        memberId;
+
+      document.getElementById("affiliation").innerText =
+        data.member.temple;
+
+      document.getElementById("adminMessage").innerText =
+        data.member.adminMessage || "No message from admin";
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("verificationCard").innerHTML =
+        "<div class='error'>Member Not Found</div>";
+    });
+}
 </script>
+
 
 </body>
 </html>
