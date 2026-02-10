@@ -91,9 +91,9 @@
     const adminMessage = localStorage.getItem('adminMessage') || "No message from admin";
 
     if (memberId) {
-        document.getElementById("memberName").innerText = userName || "Guest Member";
+        document.getElementById("userName").innerText = userName || "Guest Member";
         document.getElementById("memberId").innerText = memberId;
-        document.getElementById("affiliation").innerText = userTemple || "Shri Shiva Mandir";
+        document.getElementById("userTemple").innerText = userTemple || "No temple info";
         document.getElementById("adminMessage").innerText = adminMessage;
     } else {
         document.getElementById("verificationCard").innerHTML =
