@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Member Verification</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Member Verification</h1>
+    <h2 id="status"></h2>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const memberId = params.get("id");
+
+        if (memberId) {
+            document.getElementById("status").innerText =
+                "Verified Member ID: " + memberId;
+        } else {
+            document.getElementById("status").innerText =
+                "Invalid QR Code";
+        }
+    </script>
+
+</body>
+</html>
