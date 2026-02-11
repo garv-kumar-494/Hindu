@@ -39,7 +39,17 @@ body {
   <p class="text-sm text-orange-700 mt-1">
     Members grouped by their Mandir
   </p>
+  
 </header>
+<!-- 🔍 Temple Search -->
+<div class="max-w-5xl mx-auto px-4 mb-8">
+  <input 
+    type="text"
+    id="templeSearch"
+    placeholder="Search Temple by Name, Location or State..."
+    class="w-full border-2 border-orange-400 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
+  />
+</div>
 
 <!-- Content -->
 <main class="max-w-5xl mx-auto px-4 pb-16" id="templeContainer">
@@ -47,6 +57,8 @@ body {
 </main>
 
 <script>
+let allGroupedTemples = {}; // global store
+
 async function loadMembers() {
   try {
     const res = await fetch("https://hindu-cc0q.onrender.com/frontend-user-temple/frontend-user-temple-group");
@@ -55,63 +67,93 @@ async function loadMembers() {
     // 🔹 Group members by temple
     const grouped = {};
     members.forEach(m => {
-      const temple = m.temple?.name || "Unknown Temple";
-      if (!grouped[temple]) grouped[temple] = [];
-      grouped[temple].push(m);
+      const templeName = m.temple?.name || "Unknown Temple";
+      if (!grouped[templeName]) grouped[templeName] = [];
+      grouped[templeName].push(m);
     });
 
-    const container = document.getElementById("templeContainer");
-    container.innerHTML = "";
-
-    // 🔹 Render temple-wise
-    Object.keys(grouped).forEach(templeName => {
-      const section = document.createElement("section");
-      section.className = "temple-card rounded-2xl p-6 mb-8";
-
-      section.innerHTML = `
-        <h2 class="text-xl font-bold text-orange-800 mb-4 flex items-center gap-2">
-          🛕 ${templeName}
-<p class="text-sm text-orange-700 mt-1">
-  📍 ${grouped[templeName][0].temple.location}, 
-  ${grouped[templeName][0].temple.state}
-</p>
-
-
-          <span class="text-xs bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">
-            ${grouped[templeName].length} Members
-          </span>
-        </h2>
-
-        <div class="grid sm:grid-cols-2 gap-4">
-          ${grouped[templeName].map(member => `
-            <div class="member-card bg-white rounded-xl p-4 flex items-center gap-4 transition-all">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 
-                          flex items-center justify-center text-white font-bold text-lg">
-                ${member.name.charAt(0).toUpperCase()}
-              </div>
-
-              <div>
-                <p class="font-semibold text-orange-900">
-                  ${member.name}
-                </p>
-                
-              </div>
-            </div>
-          `).join("")}
-        </div>
-      `;
-
-      container.appendChild(section);
-    });
+    allGroupedTemples = grouped; // store globally
+    renderTemples(grouped);
 
   } catch (err) {
     console.error("Failed to load members", err);
   }
 }
 
+// 🔹 Render Function
+function renderTemples(groupedData) {
+  const container = document.getElementById("templeContainer");
+  container.innerHTML = "";
+
+  Object.keys(groupedData).forEach(templeName => {
+
+    const firstTemple = groupedData[templeName][0].temple || {};
+
+    const section = document.createElement("section");
+    section.className = "temple-card rounded-2xl p-6 mb-8";
+
+    section.innerHTML = `
+      <div class="mb-4">
+        <h2 class="text-xl font-bold text-orange-800 flex items-center gap-2">
+          🛕 ${templeName}
+          <span class="text-xs bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">
+            ${groupedData[templeName].length} Members
+          </span>
+        </h2>
+
+        <p class="text-sm text-orange-700 mt-1">
+          📍 ${firstTemple.location || ""}, ${firstTemple.state || ""}
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        ${groupedData[templeName].map(member => `
+          <div class="member-card bg-white rounded-xl p-4 flex items-center gap-4 transition-all">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 
+                        flex items-center justify-center text-white font-bold text-lg">
+              ${member.name ? member.name.charAt(0).toUpperCase() : "U"}
+            </div>
+
+            <div>
+              <p class="font-semibold text-orange-900">
+                ${member.name || "Unknown"}
+              </p>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+
+    container.appendChild(section);
+  });
+}
+
+// 🔎 SEARCH ONLY TEMPLE NAME + LOCATION + STATE
+document.getElementById("templeSearch").addEventListener("input", function() {
+  const searchValue = this.value.toLowerCase();
+
+  const filtered = {};
+
+  Object.keys(allGroupedTemples).forEach(templeName => {
+
+    const templeData = allGroupedTemples[templeName][0].temple || {};
+
+    const nameMatch = templeName.toLowerCase().includes(searchValue);
+    const locationMatch = (templeData.location || "").toLowerCase().includes(searchValue);
+    const stateMatch = (templeData.state || "").toLowerCase().includes(searchValue);
+
+    if (nameMatch || locationMatch || stateMatch) {
+      filtered[templeName] = allGroupedTemples[templeName];
+    }
+  });
+
+  renderTemples(filtered);
+});
+
 // Init
 loadMembers();
 </script>
+
 
 </body>
 </html>
