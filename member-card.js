@@ -14,7 +14,7 @@ const memberSchema = new mongoose.Schema({
 const Member = mongoose.model("Member", memberSchema);
 
 // ✅ Save Member (No Duplicate)
-router.post("/save-member", async (req, res) => {
+router.post("/save-membersss", async (req, res) => {
   try {
     const { userName, membershipId, padvi, affiliation } = req.body;
 
