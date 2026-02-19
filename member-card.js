@@ -4,14 +4,14 @@ const router = express.Router();
 
 
 // ✅ Member Schema
-const memberSchema = new mongoose.Schema({
+const savememberSchema = new mongoose.Schema({
   userName: { type: String, required: true },
   membershipId: { type: String, required: true, unique: true }, // 🔥 UNIQUE
   padvi: { type: String },
   affiliation: { type: String }
 });
 
-const Member = mongoose.model("Member", memberSchema);
+const SaveMember = mongoose.model("SaveMember", savememberSchema);
 
 // ✅ Save Member (No Duplicate)
 router.post("/save-membersss", async (req, res) => {
@@ -19,7 +19,7 @@ router.post("/save-membersss", async (req, res) => {
     const { userName, membershipId, padvi, affiliation } = req.body;
 
     // Check if already exists
-    const existing = await Member.findOne({ membershipId });
+    const existing = await SaveMember.findOne({ membershipId });
 
     if (existing) {
       return res.json({
@@ -28,7 +28,7 @@ router.post("/save-membersss", async (req, res) => {
       });
     }
 
-    const newMember = new Member({
+    const newMember = new SaveMember({
       userName,
       membershipId,
       padvi,
