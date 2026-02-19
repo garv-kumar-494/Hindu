@@ -266,16 +266,7 @@ function updateCard() {
             correctLevel: QRCode.CorrectLevel.H
         });
     }
-    // Get padvi text
-const padviText = document.getElementById("adminMessage").innerText;
-
-// Save to DB (only once, duplicate safe)
-saveMemberToDB(
-    userName || "Guest Member",
-    generatedId,
-    padviText,
-    userTemple || "Shri Shiva Mandir"
-);
+  
 
 }
 
@@ -330,33 +321,47 @@ async function saveMemberToDB(name, id, padvi, temple) {
 
 
 
-function fetchAdminMessage() {
+async function fetchAdminMessageAndSync(generatedId) {
   if (!userName) return;
 
-  fetch(`https://hindu-cc0q.onrender.com/messagefromadmin/member-by-name/${encodeURIComponent(userName)}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.success && data.member.adminMessage) {
-        document.getElementById("adminMessage").innerText =
-          data.member.adminMessage;
-      } else {
-        document.getElementById("adminMessage").innerText =
-          "No message from admin";
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById("adminMessage").innerText =
-        "Unable to load message";
-    });
+  try {
+    const res = await fetch(
+      `https://hindu-cc0q.onrender.com/messagefromadmin/member-by-name/${encodeURIComponent(userName)}`
+    );
+
+    const data = await res.json();
+
+    let padviText = "No message from admin";
+
+    if (data.success && data.member.adminMessage) {
+      padviText = data.member.adminMessage;
+    }
+
+    // Update UI
+    document.getElementById("adminMessage").innerText = padviText;
+
+    // 🔥 UPDATE DB WITH LATEST ADMIN MESSAGE
+    await saveMemberToDB(
+      userName,
+      generatedId,
+      padviText,
+      userTemple
+    );
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("adminMessage").innerText = "Unable to load message";
+  }
 }
 
+return generatedId;
 
-        // Initialize card on load
-document.addEventListener('DOMContentLoaded', () => {
-  updateCard();
-  fetchAdminMessage();
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const generatedId = updateCard();
+  await fetchAdminMessageAndSync(generatedId);
 });
+
 
     </script>
 
