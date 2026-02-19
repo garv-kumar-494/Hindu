@@ -266,33 +266,9 @@ function updateCard() {
             correctLevel: QRCode.CorrectLevel.H
         });
     }
-  
-
 }
 
     
-async function saveMemberToDB(name, id, padvi, temple) {
-    try {
-        const res = await fetch("https://hindu-cc0q.onrender.com/savemembers/save-membersss", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                userName: name,
-                membershipId: id,
-                padvi: padvi,
-                affiliation: temple
-            })
-        });
-
-        const data = await res.json();
-        console.log(data.message);
-
-    } catch (error) {
-        console.error("Error saving member:", error);
-    }
-}
 
 
 
@@ -350,13 +326,15 @@ async function fetchAdminMessageAndSync(generatedId) {
 
   } catch (err) {
     console.error(err);
-    document.getElementById("adminMessage").innerText = "Unable to load message";
+    document.getElementById("adminMessage").innerText = "load message from admin";
   }
+  return generatedId;
+
 }
 
-return generatedId;
 
 
+        // Initialize card on load
 document.addEventListener('DOMContentLoaded', async () => {
   const generatedId = updateCard();
   await fetchAdminMessageAndSync(generatedId);
