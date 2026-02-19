@@ -233,10 +233,6 @@ function updateCard() {
     const affiliationEl = document.getElementById('affiliation');
     const userAvatarEl = document.getElementById('userAvatar');
 
-    const userId = localStorage.getItem("userId");  // 🔥 UNIQUE ID
-    const userName = localStorage.getItem("userName");
-    const userTemple = localStorage.getItem("userTemple");
-
     // Set Name
     if (userName) {
         memberNameEl.textContent = userName;
@@ -245,25 +241,31 @@ function updateCard() {
         memberNameEl.textContent = 'Guest Member';
     }
 
-    // Set Membership ID = Backend ID
-    membershipIdEl.textContent = userId;
+    // Generate Unique Membership ID
+    const generatedId = generateMembershipId(userEmail);
+    membershipIdEl.textContent = generatedId;
+
+    // Set Affiliation
     affiliationEl.textContent = userTemple || 'Shri Shiva Mandir';
 
-    // 🔥 NEW VERIFICATION URL
-    const verificationURL = `https://hinduyodhaparishad.onrender.com/verify.html?id=${userId}`;
+    // Create Verification URL (THIS is what QR will contain)
+    const verificationURL = `https://hinduyodhaparishad.onrender.com/member-card.html?id=${generatedId}`;
 
-    
+    // Generate QR Code
     const qrContainer = document.getElementById("qrCode");
-    qrContainer.innerHTML = "";
 
-    new QRCode(qrContainer, {
-        text: verificationURL,
-        width: 130,
-        height: 130,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-    });
+    if (qrContainer) {
+        qrContainer.innerHTML = "";
+
+        new QRCode(qrContainer, {
+            text: verificationURL,
+            width: 130,
+            height: 130,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    }
 }
 
     
