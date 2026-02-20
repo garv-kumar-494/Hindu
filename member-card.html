@@ -248,6 +248,10 @@ function updateCard() {
     // Set Affiliation
     affiliationEl.textContent = userTemple || 'Shri Shiva Mandir';
 
+  // 🔥 ADD THIS LINE
+    //saveMemberToDB(userName, generatedId, "MEMBER", userTemple);
+
+
     // Create Verification URL (THIS is what QR will contain)
     const verificationURL = `https://hinduyodhaparishad.onrender.com/member-card.html?id=${generatedId}`;
 
@@ -303,13 +307,23 @@ function fetchAdminMessage() {
   fetch(`https://hindu-cc0q.onrender.com/messagefromadmin/member-by-name/${encodeURIComponent(userName)}`)
     .then(res => res.json())
     .then(data => {
+
+let padviText = "MEMBER"; // default
+
       if (data.success && data.member.adminMessage) {
+         padviText = data.member.adminMessage; 
+           // 🔥🔥 THIS WAS MISSING
+            document.getElementById("adminMessage").innerText = padviText;
         document.getElementById("adminMessage").innerText =
           data.member.adminMessage;
       } else {
         document.getElementById("adminMessage").innerText =
           "No message from admin";
       }
+
+      // 🔥 SAVE WITH REAL PADVI
+      const generatedId = generateMembershipId(userEmail);
+      saveMemberToDB(userName, generatedId, padviText, userTemple);
     })
     .catch(err => {
       console.error(err);
