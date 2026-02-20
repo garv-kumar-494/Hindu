@@ -19,28 +19,16 @@ router.post("/save-membersss", async (req, res) => {
     const { userName, membershipId, padvi, affiliation } = req.body;
 
     // Check if already exists
-    const existing = await SaveMember.findOne({ membershipId });
-
-    if (existing) {
-      return res.json({
-        success: true,
-        message: "Member already exists"
-      });
-    }
-
-    const newMember = new SaveMember({
-      userName,
-      membershipId,
-      padvi,
-      affiliation
-    });
-
-    await newMember.save();
+    const updatedmember = await SaveMember.findOneAndUpdate({ membershipId }, { userName, padvi, affiliation }, { new : true,upsert: true });
 
     res.json({
-      success: true,
-      message: "Member saved successfully"
-    });
+        success: true,
+        message: "Member updated successfully",
+        member: updatedmember
+      });
+    
+
+    
 
   } catch (err) {
     console.error(err);
