@@ -297,49 +297,57 @@ function updateCard() {
 
 
 
-async function fetchAdminMessageAndSync(generatedId) {
+function fetchAdminMessage() {
   if (!userName) return;
 
-  try {
-    const res = await fetch(
-      `https://hindu-cc0q.onrender.com/messagefromadmin/member-by-name/${encodeURIComponent(userName)}`
-    );
-
-    const data = await res.json();
-
-    let padviText = "No message from admin";
-
-    if (data.success && data.member.adminMessage) {
-      padviText = data.member.adminMessage;
-    }
-
-    // Update UI
-    document.getElementById("adminMessage").innerText = padviText;
-
-    // 🔥 UPDATE DB WITH LATEST ADMIN MESSAGE
-    await saveMemberToDB(
-      userName,
-      generatedId,
-      padviText,
-      userTemple
-    );
-
-  } catch (err) {
-    console.error(err);
-    document.getElementById("adminMessage").innerText = "load message from admin";
-  }
-  return generatedId;
-
+  fetch(`https://hindu-cc0q.onrender.com/messagefromadmin/member-by-name/${encodeURIComponent(userName)}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.success && data.member.adminMessage) {
+        document.getElementById("adminMessage").innerText =
+          data.member.adminMessage;
+      } else {
+        document.getElementById("adminMessage").innerText =
+          "No message from admin";
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("adminMessage").innerText =
+        "Unable to load message";
+    });
 }
 
 
-
         // Initialize card on load
-document.addEventListener('DOMContentLoaded', async () => {
-  const generatedId = updateCard();
-  await fetchAdminMessageAndSync(generatedId);
+document.addEventListener('DOMContentLoaded', () => {
+  updateCard();
+  fetchAdminMessage();
 });
 
+
+async function saveMemberToDB(userName, membershipId, padvi, affiliation) {
+  try {
+    const res = await fetch("https://hindu-cc0q.onrender.com/savemembers/save-membersss", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userName,
+        membershipId,
+        padvi,
+        affiliation
+      })
+    });
+
+    const data = await res.json();
+    console.log("Saved to DB:", data);
+
+  } catch (err) {
+    console.error("DB Save Error:", err);
+  }
+}
 
     </script>
 
