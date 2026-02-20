@@ -33,7 +33,7 @@ app.use('/loadusermessages', require('./users-messages'));
 app.use('/frontend-user-temple', require('./memb-prof'));
 app.use('/messagefromadmin', require('./memb-prof'));
 app.use('/savemembers',require('./member-card'));
-
+app.use('/savemembersid',require('./member-card'))
 
 
 const PORT = process.env.PORT || 3000;

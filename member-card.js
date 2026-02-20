@@ -35,5 +35,25 @@ router.post("/save-membersss", async (req, res) => {
     res.status(500).json({ success: false });
   }
 });
+// ✅ GET Member by Membership ID
+router.get("/member-by-id/:id", async (req, res) => {
+  try {
+    const member = await SaveMember.findOne({
+      membershipId: req.params.id
+    });
 
+    if (!member) {
+      return res.json({ success: false, message: "Member not found" });
+    }
+
+    res.json({
+      success: true,
+      member
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
+});
 module.exports = router;

@@ -1,140 +1,140 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Member Verification - Hindu Yodha Parishad</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HYP Member Verification</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: linear-gradient(135deg, #1a0d06, #2d1810);
-    }
-
-    .gold-border {
-      border: 3px solid;
-      border-image: linear-gradient(135deg, #B8860B, #FFD700, #DAA520, #B8860B) 1;
-    }
-
-    .glow {
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-    }
-  </style>
+<style>
+body{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: radial-gradient(circle at top, #3b1d0f, #120904);
+}
+.gold-border{
+    border:3px solid;
+    border-image: linear-gradient(135deg,#B8860B,#FFD700,#DAA520,#B8860B) 1;
+}
+.glow{
+    box-shadow:0 0 25px rgba(255,215,0,0.4);
+}
+</style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-6 text-white">
+<body class="min-h-screen flex items-center justify-center p-6">
 
-  <div class="w-full max-w-md bg-[#1c1917] rounded-3xl p-8 gold-border glow text-center">
+<div id="cardContainer" class="w-full max-w-md">
 
-    <!-- Logo Title -->
-    <h1 class="text-2xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-6">
-      SANGHA VERIFICATION
-    </h1>
+<div class="bg-[#1a0d06] rounded-3xl p-6 relative gold-border glow">
 
-    <!-- Status Icon -->
-    <div id="statusIcon" class="flex justify-center mb-4">
-      <div class="animate-spin w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full"></div>
-    </div>
+<!-- Header -->
+<div class="text-center mb-6">
+<h1 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 tracking-widest">
+HINDU YODHA PARISHAD
+</h1>
+<p class="text-yellow-500 text-xs tracking-wider mt-1">
+OFFICIAL MEMBER VERIFICATION
+</p>
+</div>
 
-    <!-- Status Text -->
-    <h2 id="statusText" class="text-lg font-bold mb-4">
-      Verifying Member...
-    </h2>
+<!-- Status Badge -->
+<div id="statusBadge" class="text-center mb-6">
+<span class="bg-green-600 text-white px-4 py-1 rounded-full text-xs font-bold tracking-wider">
+VERIFIED MEMBER
+</span>
+</div>
 
-    <!-- Member Details -->
-    <div id="memberDetails" class="hidden space-y-3 text-left bg-white/5 p-5 rounded-xl">
+<!-- Member Info -->
+<div class="space-y-4 text-white">
 
-      <div>
-        <p class="text-gray-400 text-xs uppercase">Name</p>
-        <p id="memberName" class="font-bold text-lg"></p>
-      </div>
+<div>
+<p class="text-gray-400 text-xs uppercase">Member Name</p>
+<p id="memberName" class="font-bold text-lg">Loading...</p>
+</div>
 
-      <div>
-        <p class="text-gray-400 text-xs uppercase">Membership ID</p>
-        <p id="memberId" class="font-semibold"></p>
-      </div>
+<div>
+<p class="text-gray-400 text-xs uppercase">Membership ID</p>
+<p id="membershipId" class="font-semibold">----</p>
+</div>
 
-      <div>
-        <p class="text-gray-400 text-xs uppercase">Affiliation</p>
-        <p id="memberTemple" class="font-semibold"></p>
-      </div>
+<div>
+<p class="text-gray-400 text-xs uppercase">Padvi</p>
+<p id="adminMessage" class="bg-white/10 p-2 rounded-lg font-semibold">----</p>
+</div>
 
-      <div>
-        <p class="text-gray-400 text-xs uppercase">Status</p>
-        <p class="text-green-400 font-bold">VERIFIED MEMBER</p>
-      </div>
+<div>
+<p class="text-gray-400 text-xs uppercase">Affiliation</p>
+<p id="affiliation" class="font-semibold">----</p>
+</div>
 
-    </div>
+</div>
 
-    <!-- Invalid Message -->
-    <div id="invalidMessage" class="hidden text-red-400 font-bold mt-4">
-      ❌ Invalid or Unregistered Member
-    </div>
+<!-- Footer -->
+<div class="mt-8 text-center text-xs text-gray-500">
+Established in Truth • Protected by Dharma
+</div>
 
-  </div>
+</div>
+
+</div>
 
 <script>
 
-const params = new URLSearchParams(window.location.search);
-const userId = params.get("id");
-
-const statusIcon = document.getElementById("statusIcon");
-const statusText = document.getElementById("statusText");
-const memberDetails = document.getElementById("memberDetails");
-const invalidMessage = document.getElementById("invalidMessage");
-
-if (!userId) {
-  showInvalid();
-} else {
-
-  // 🔥 CHANGE THIS TO YOUR REAL BACKEND URL
-  fetch(`https://hindu-cc0q.onrender.com/member/${userId}`)
-    .then(res => res.json())
-    .then(data => {
-
-      if (data.success && data.member) {
-
-        // Stop loading animation
-        statusIcon.innerHTML = `
-          <div class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center">
-            ✓
-          </div>
-        `;
-
-        statusText.innerText = "Member Verified Successfully";
-
-        document.getElementById("memberName").innerText = data.member.name;
-        document.getElementById("memberId").innerText = data.member._id;
-        document.getElementById("memberTemple").innerText = data.member.temple || "Hindu Yodha Parishad";
-
-        memberDetails.classList.remove("hidden");
-
-      } else {
-        showInvalid();
-      }
-
-    })
-    .catch(err => {
-      console.error(err);
-      showInvalid();
-    });
+function getIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id");
 }
 
-function showInvalid() {
-  statusIcon.innerHTML = `
-    <div class="w-14 h-14 bg-red-500 rounded-full flex items-center justify-center">
-      ✕
-    </div>
-  `;
-  statusText.innerText = "Verification Failed";
-  invalidMessage.classList.remove("hidden");
+async function fetchMemberData() {
+
+  const memberId = getIdFromURL();
+
+  if (!memberId) {
+    showInvalid("Invalid Verification Link");
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      `https://hindu-cc0q.onrender.com/savemembersid/member-by-id/${memberId}`
+    );
+
+    const data = await res.json();
+
+    if (!data.success) {
+      showInvalid("Member Not Found");
+      return;
+    }
+
+    const member = data.member;
+
+    document.getElementById("memberName").innerText = member.userName;
+    document.getElementById("membershipId").innerText = member.membershipId;
+    document.getElementById("adminMessage").innerText = member.padvi || "MEMBER";
+    document.getElementById("affiliation").innerText = member.affiliation || "Not Available";
+
+  } catch (err) {
+    console.error(err);
+    showInvalid("Server Error");
+  }
 }
+
+function showInvalid(message){
+  document.getElementById("statusBadge").innerHTML =
+    `<span class="bg-red-600 text-white px-4 py-1 rounded-full text-xs font-bold tracking-wider">
+      ${message}
+    </span>`;
+
+  document.getElementById("memberName").innerText = "Verification Failed";
+  document.getElementById("membershipId").innerText = "--";
+  document.getElementById("adminMessage").innerText = "--";
+  document.getElementById("affiliation").innerText = "--";
+}
+
+document.addEventListener("DOMContentLoaded", fetchMemberData);
 
 </script>
 
